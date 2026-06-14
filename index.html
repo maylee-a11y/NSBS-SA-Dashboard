@@ -2,14 +2,16 @@
 <html lang="en">
 <head>
 <script>
-/* ===== STATIC DATA BRIDGE — injected by build_static.py. Data captured 2026-06-14. ===== */
+/* ===== STATIC DATA BRIDGE — injected by build_from_json.py. Data captured 2026-06-14. ===== */
 (function () {
   var REAL = Date, FROZEN = REAL.parse("2026-06-14T21:30:00+08:00");
   function D(a,b,c,e,f,g,h){ switch(arguments.length){
     case 0: return new REAL(FROZEN); case 1: return new REAL(a); case 2: return new REAL(a,b);
     case 3: return new REAL(a,b,c); case 4: return new REAL(a,b,c,e); case 5: return new REAL(a,b,c,e,f);
     case 6: return new REAL(a,b,c,e,f,g); default: return new REAL(a,b,c,e,f,g,h);} }
-  D.now=function(){return FROZEN;}; D.parse=REAL.parse; D.UTC=REAL.UTC; D.prototype=REAL.prototype;
+  /* IMPORTANT: keep Date.now() REAL so Chart.js animations advance; only the
+     no-arg `new Date()` is frozen so the dashboard's data windows match the bake. */
+  D.now=REAL.now; D.parse=REAL.parse; D.UTC=REAL.UTC; D.prototype=REAL.prototype;
   try { Object.setPrototypeOf(D, REAL); } catch(_) {}
   window.Date = D;
 
@@ -41,6 +43,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Steel Architectural Awards ASEAN Performance</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.js" integrity="sha384-iU8HYtnGQ8Cy4zl7gbNMOhsDTTKX02BTXptVP/vqAWIaTfM7isw76iyZCsjL2eVi" crossorigin="anonymous"></script>
+<script>try{if(window.Chart){Chart.defaults.animation=false;Chart.defaults.animations=false;}}catch(e){}</script>
 <style>
   :root { color-scheme: light; }
   * { box-sizing: border-box; }
